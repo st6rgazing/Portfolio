@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
-import { Github, Linkedin, Mail, MessageSquare, Send } from "lucide-react"
+import { Github, Linkedin, Mail, MessageSquare, Send, Sparkles } from "lucide-react"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -33,20 +33,47 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-20 relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(var(--primary-rgb),0.1),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(var(--secondary-rgb),0.1),transparent_40%)]"></div>
-      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-background to-transparent -z-10"></div>
-      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-background to-transparent -z-10"></div>
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-grid opacity-30"></div>
+        <motion.div
+          className="absolute top-1/3 right-1/3 w-64 h-64 rounded-full bg-vibrant-purple/10 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 left-1/3 w-64 h-64 rounded-full bg-vibrant-pink/10 blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.5, 0.3, 0.5],
+          }}
+          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
+        />
+      </div>
 
-      <div className="container mx-auto px-4">
-        <motion.h2
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center mb-16"
+          className="text-center mb-16"
         >
-          Get In Touch
-        </motion.h2>
+          <h2 className="text-4xl font-bold text-center mb-4 inline-block relative">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-vibrant-purple to-vibrant-pink">
+              Get In Touch
+            </span>
+            <motion.span
+              className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-vibrant-purple to-vibrant-pink"
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              viewport={{ once: true }}
+            />
+          </h2>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <motion.div
@@ -54,9 +81,9 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-border/50"
+            className="bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-vibrant-purple/20 shadow-lg"
           >
-            <h3 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+            <h3 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-vibrant-purple to-vibrant-pink">
               Contact Me
             </h3>
             <p className="text-muted-foreground mb-8 text-lg">
@@ -66,20 +93,20 @@ export function ContactSection() {
             <div className="space-y-6">
               <motion.div
                 whileHover={{ x: 5 }}
-                className="flex items-center gap-4 p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-vibrant-purple/10 transition-colors"
               >
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <Mail className="h-6 w-6 text-primary" />
+                <div className="p-3 bg-vibrant-purple/20 rounded-full">
+                  <Mail className="h-6 w-6 text-vibrant-purple" />
                 </div>
                 <span className="text-lg">hello@example.com</span>
               </motion.div>
 
               <motion.div
                 whileHover={{ x: 5 }}
-                className="flex items-center gap-4 p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-vibrant-purple/10 transition-colors"
               >
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <MessageSquare className="h-6 w-6 text-primary" />
+                <div className="p-3 bg-vibrant-purple/20 rounded-full">
+                  <MessageSquare className="h-6 w-6 text-vibrant-purple" />
                 </div>
                 <span className="text-lg">Schedule a call</span>
               </motion.div>
@@ -89,9 +116,9 @@ export function ContactSection() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full h-12 w-12 border-primary/50 bg-primary/10"
+                    className="rounded-full h-12 w-12 border-vibrant-purple/50 bg-vibrant-purple/10 hover:bg-vibrant-purple/20"
                   >
-                    <Github className="h-5 w-5 text-primary" />
+                    <Github className="h-5 w-5 text-vibrant-purple" />
                     <span className="sr-only">GitHub</span>
                   </Button>
                 </motion.div>
@@ -99,10 +126,20 @@ export function ContactSection() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full h-12 w-12 border-primary/50 bg-primary/10"
+                    className="rounded-full h-12 w-12 border-vibrant-pink/50 bg-vibrant-pink/10 hover:bg-vibrant-pink/20"
                   >
-                    <Linkedin className="h-5 w-5 text-primary" />
+                    <Linkedin className="h-5 w-5 text-vibrant-pink" />
                     <span className="sr-only">LinkedIn</span>
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ y: -5 }}>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full h-12 w-12 border-vibrant-blue/50 bg-vibrant-blue/10 hover:bg-vibrant-blue/20"
+                  >
+                    <Sparkles className="h-5 w-5 text-vibrant-blue" />
+                    <span className="sr-only">Portfolio</span>
                   </Button>
                 </motion.div>
               </div>
@@ -115,7 +152,7 @@ export function ContactSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Card className="border-border/50 bg-card/30 backdrop-blur-sm overflow-hidden">
+            <Card className="border-vibrant-purple/20 bg-card/30 backdrop-blur-sm overflow-hidden shadow-lg">
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
@@ -129,7 +166,7 @@ export function ContactSection() {
                       onChange={handleChange}
                       placeholder="Your name"
                       required
-                      className="bg-background/50 border-border/50 focus:border-primary/50"
+                      className="bg-background/50 border-vibrant-purple/20 focus:border-vibrant-purple/50"
                     />
                   </div>
 
@@ -145,7 +182,7 @@ export function ContactSection() {
                       onChange={handleChange}
                       placeholder="Your email"
                       required
-                      className="bg-background/50 border-border/50 focus:border-primary/50"
+                      className="bg-background/50 border-vibrant-purple/20 focus:border-vibrant-purple/50"
                     />
                   </div>
 
@@ -161,17 +198,20 @@ export function ContactSection() {
                       placeholder="Your message"
                       rows={5}
                       required
-                      className="bg-background/50 border-border/50 focus:border-primary/50"
+                      className="bg-background/50 border-vibrant-purple/20 focus:border-vibrant-purple/50"
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
-                  >
-                    Send Message
-                    <Send className="ml-2 h-4 w-4" />
-                  </Button>
+                  <div className="relative">
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink rounded-md opacity-75 blur-sm animate-pulse"></div>
+                    <Button
+                      type="submit"
+                      className="relative w-full bg-gradient-to-r from-vibrant-purple to-vibrant-pink hover:opacity-90 transition-opacity"
+                    >
+                      Send Message
+                      <Send className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
                 </form>
               </CardContent>
             </Card>

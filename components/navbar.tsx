@@ -34,15 +34,28 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Use hash links for GitHub Pages compatibility
+  const scrollToSection = (id) => (e) => {
+    e.preventDefault()
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+      if (isOpen) setIsOpen(false)
+      window.history.pushState({}, "", `#${id}`)
+    }
+  }
+
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm" : "bg-transparent border-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+        scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="font-bold text-xl">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Portfolio</span>
+        <Link href="./" className="font-bold text-xl">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-vibrant-purple to-vibrant-pink">
+            Portfolio
+          </span>
         </Link>
 
         {isMobile ? (
@@ -61,27 +74,27 @@ export function Navbar() {
                 className="fixed inset-0 top-16 z-50 bg-background/95 backdrop-blur-md p-6"
               >
                 <nav className="flex flex-col space-y-6 text-lg">
-                  <Link
-                    href="/#projects"
-                    onClick={() => setIsOpen(false)}
-                    className="hover:text-primary transition-colors"
+                  <a
+                    href="#projects"
+                    onClick={scrollToSection("projects")}
+                    className="hover:text-vibrant-purple transition-colors"
                   >
                     Projects
-                  </Link>
-                  <Link
-                    href="/#about"
-                    onClick={() => setIsOpen(false)}
-                    className="hover:text-primary transition-colors"
+                  </a>
+                  <a
+                    href="#about"
+                    onClick={scrollToSection("about")}
+                    className="hover:text-vibrant-purple transition-colors"
                   >
                     About
-                  </Link>
-                  <Link
-                    href="/#contact"
-                    onClick={() => setIsOpen(false)}
-                    className="hover:text-primary transition-colors"
+                  </a>
+                  <a
+                    href="#contact"
+                    onClick={scrollToSection("contact")}
+                    className="hover:text-vibrant-purple transition-colors"
                   >
                     Contact
-                  </Link>
+                  </a>
                   <ModeToggle />
                 </nav>
               </motion.div>
@@ -89,18 +102,30 @@ export function Navbar() {
           </>
         ) : (
           <nav className="flex items-center gap-8">
-            <Link href="/#projects" className="text-sm font-medium transition-colors hover:text-primary relative group">
+            <a
+              href="#projects"
+              onClick={scrollToSection("projects")}
+              className="text-sm font-medium transition-colors hover:text-vibrant-purple relative group"
+            >
               Projects
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link href="/#about" className="text-sm font-medium transition-colors hover:text-primary relative group">
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a
+              href="#about"
+              onClick={scrollToSection("about")}
+              className="text-sm font-medium transition-colors hover:text-vibrant-purple relative group"
+            >
               About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link href="/#contact" className="text-sm font-medium transition-colors hover:text-primary relative group">
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a
+              href="#contact"
+              onClick={scrollToSection("contact")}
+              className="text-sm font-medium transition-colors hover:text-vibrant-purple relative group"
+            >
               Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </Link>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink transition-all duration-300 group-hover:w-full"></span>
+            </a>
             <ModeToggle />
           </nav>
         )}
