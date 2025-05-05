@@ -21,7 +21,8 @@ export default function ClientLayout({
     const path = window.location.pathname
     const hash = window.location.hash
 
-    if ((hash && path === "/") || path === "/index.html") {
+    // Check if we're on the base path or index.html
+    if (hash && (path === "/Portfolio/" || path === "/Portfolio/index.html")) {
       setTimeout(() => {
         const element = document.querySelector(hash)
         if (element) {
@@ -40,7 +41,7 @@ export default function ClientLayout({
           content="A showcase of creative and technical projects in interactive media and computer science"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="./favicon.ico" />
+        <link rel="icon" href="/Portfolio/favicon.ico" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>

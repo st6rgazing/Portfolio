@@ -14,7 +14,7 @@ const projectsData = [
     title: "Interactive Data Visualization",
     description:
       "A web-based interactive data visualization platform that transforms complex datasets into engaging visual experiences.",
-    image: "./placeholder.png?height=600&width=800",
+    image: "/Portfolio/placeholder.png",
     category: "creative",
     tags: ["D3.js", "React", "WebGL", "Interactive Media"],
     links: {
@@ -27,7 +27,7 @@ const projectsData = [
     title: "AI-Powered Recommendation Engine",
     description:
       "A machine learning algorithm that analyzes user behavior to provide personalized content recommendations.",
-    image: "./placeholder.png?height=600&width=800",
+    image: "/Portfolio/placeholder.png",
     category: "technical",
     tags: ["Python", "TensorFlow", "Machine Learning", "API"],
     links: {
@@ -40,7 +40,7 @@ const projectsData = [
     title: "Immersive VR Experience",
     description:
       "A virtual reality experience that transports users to an interactive digital world with realistic physics and interactions.",
-    image: "./placeholder.png?height=600&width=800",
+    image: "/Portfolio/placeholder.png",
     category: "creative",
     tags: ["Unity", "C#", "3D Modeling", "VR"],
     links: {
@@ -53,7 +53,7 @@ const projectsData = [
     title: "Distributed Database System",
     description:
       "A high-performance distributed database system designed for scalability and fault tolerance in enterprise applications.",
-    image: "./placeholder.png?height=600&width=800",
+    image: "/Portfolio/placeholder.png",
     category: "technical",
     tags: ["Go", "Distributed Systems", "Algorithms", "Database"],
     links: {
@@ -66,7 +66,7 @@ const projectsData = [
     title: "Interactive Storytelling App",
     description:
       "A mobile application that combines narrative storytelling with interactive elements and user choices.",
-    image: "./placeholder.png?height=600&width=800",
+    image: "/Portfolio/placeholder.png",
     category: "creative",
     tags: ["React Native", "Animation", "UX Design", "Storytelling"],
     links: {
@@ -78,7 +78,7 @@ const projectsData = [
     id: 6,
     title: "Blockchain Smart Contract Platform",
     description: "A platform for creating, testing, and deploying smart contracts on multiple blockchain networks.",
-    image: "./placeholder.png?height=600&width=800",
+    image: "/Portfolio/placeholder.png",
     category: "technical",
     tags: ["Solidity", "Ethereum", "Web3", "JavaScript"],
     links: {
@@ -195,7 +195,7 @@ export default function Projects() {
                 <div className="relative bg-card rounded-xl overflow-hidden border hover:shadow-lg transition-all duration-300">
                   <div className="relative overflow-hidden aspect-video">
                     <img
-                      src={project.image || "./placeholder.png"}
+                      src={project.image || "/placeholder.svg"}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />

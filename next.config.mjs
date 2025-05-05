@@ -10,9 +10,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Uncomment and modify this if you're not deploying to the root of your GitHub Pages domain
-  // basePath: '/your-repo-name',
-  // assetPrefix: '/your-repo-name/',
+  // This is critical for GitHub Pages to work correctly
+  basePath: '/Portfolio',
+  assetPrefix: '/Portfolio/',
   trailingSlash: true,
 };
 
