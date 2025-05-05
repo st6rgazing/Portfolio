@@ -13,6 +13,7 @@
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, var(--light-blue), var(--light-purple));
     --gradient-secondary: linear-gradient(135deg, var(--light-pink), var(--light-purple));
+    --gradient-tertiary: linear-gradient(135deg, var(--light-blue), var(--light-pink));
     
     /* Typography */
     --font-primary: 'Poppins', sans-serif;
@@ -171,6 +172,8 @@ button {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
+    z-index: 1;
 }
 
 /* ===== NAVBAR ===== */
@@ -183,6 +186,8 @@ button {
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: var(--shadow-small);
     transition: var(--transition-fast);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .navbar.scrolled {
@@ -205,6 +210,25 @@ button {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+.logo:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+}
+
+.logo:hover:after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .nav-menu {
@@ -294,6 +318,7 @@ button {
 section {
     padding: 100px 0;
     position: relative;
+    overflow: hidden;
 }
 
 .section-header {
@@ -307,6 +332,9 @@ section {
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .section-header h2:before {
@@ -373,18 +401,14 @@ section {
     margin-top: 30px;
 }
 
-.canvas-container {
+/* 3D Hero Canvas */
+#hero-canvas-container {
     position: absolute;
     top: 0;
     right: 0;
-    width: 50%;
-    height: 100%;
-    z-index: 0;
-}
-
-#hero-canvas {
     width: 100%;
     height: 100%;
+    z-index: 0;
 }
 
 .scroll-indicator {
@@ -469,6 +493,17 @@ section {
 /* ===== ABOUT SECTION ===== */
 .about-section {
     background-color: var(--off-white);
+    position: relative;
+}
+
+#about-canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .about-content {
@@ -476,6 +511,8 @@ section {
     flex-wrap: wrap;
     align-items: center;
     gap: 50px;
+    position: relative;
+    z-index: 1;
 }
 
 .about-image {
@@ -623,10 +660,26 @@ section {
 }
 
 /* ===== SKILLS SECTION ===== */
+.skills-section {
+    position: relative;
+}
+
+#skills-canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
 .skills-container {
     display: flex;
     flex-direction: column;
     gap: 50px;
+    position: relative;
+    z-index: 1;
 }
 
 .skills-category h3 {
@@ -648,22 +701,49 @@ section {
     padding: 30px;
     box-shadow: var(--shadow-small);
     transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: var(--transition-medium);
+    z-index: -1;
 }
 
 .skill-item:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    color: var(--white);
+}
+
+.skill-item:hover:before {
+    opacity: 1;
+}
+
+.skill-item:hover .skill-icon,
+.skill-item:hover h4 {
+    color: var(--white);
 }
 
 .skill-icon {
     font-size: 2.5rem;
     margin-bottom: 15px;
     color: var(--light-purple);
+    transition: var(--transition-fast);
 }
 
 .skill-item h4 {
     font-size: 1.2rem;
     margin-bottom: 15px;
+    transition: var(--transition-fast);
 }
 
 .skill-progress {
@@ -682,13 +762,34 @@ section {
     transition: width 1.5s ease-in-out;
 }
 
+.skill-item:hover .skill-progress {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
 /* ===== PROJECTS SECTION ===== */
+.projects-section {
+    background-color: var(--off-white);
+    position: relative;
+}
+
+#projects-showcase-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
 .filter-buttons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
 }
 
 .filter-btn {
@@ -698,11 +799,30 @@ section {
     color: var(--dark-gray);
     font-weight: 500;
     transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: var(--transition-fast);
+    z-index: -1;
+}
+
+.filter-btn:hover:before,
+.filter-btn.active:before {
+    opacity: 1;
 }
 
 .filter-btn:hover,
 .filter-btn.active {
-    background: var(--gradient-primary);
     color: var(--white);
 }
 
@@ -710,6 +830,8 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 30px;
+    position: relative;
+    z-index: 1;
 }
 
 .project-item {
@@ -725,7 +847,7 @@ section {
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
     box-shadow: var(--shadow-medium);
 }
 
@@ -827,13 +949,25 @@ section {
 
 /* ===== CONTACT SECTION ===== */
 .contact-section {
-    background-color: var(--off-white);
+    position: relative;
+}
+
+#contact-canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .contact-container {
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
+    position: relative;
+    z-index: 1;
 }
 
 .contact-info {
@@ -1016,10 +1150,6 @@ section {
     .typed-container {
         font-size: 1.5rem;
     }
-    
-    .canvas-container {
-        width: 40%;
-    }
 }
 
 @media (max-width: 768px) {
@@ -1065,10 +1195,6 @@ section {
     
     .cta-buttons {
         justify-content: center;
-    }
-    
-    .canvas-container {
-        display: none;
     }
     
     .about-content,

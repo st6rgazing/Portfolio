@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creative Portfolio</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/favicon.png">
     
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -59,10 +57,12 @@
                     <a href="#contact" class="btn secondary-btn">Contact Me</a>
                 </div>
             </div>
-            <div class="canvas-container">
-                <canvas id="hero-canvas"></canvas>
-            </div>
         </div>
+        
+        <!-- 3D Hero Canvas -->
+        <div id="hero-canvas-container"></div>
+        
+        <!-- Scroll Indicator -->
         <div class="scroll-indicator">
             <div class="mouse">
                 <div class="wheel"></div>
@@ -132,6 +132,9 @@
                 </div>
             </div>
         </div>
+        
+        <!-- 3D Floating Objects -->
+        <div id="about-canvas-container"></div>
     </section>
 
     <!-- Skills Section -->
@@ -246,6 +249,9 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Interactive 3D Skills Visualization -->
+        <div id="skills-canvas-container"></div>
     </section>
 
     <!-- Projects Section -->
@@ -414,6 +420,9 @@
                 </div>
             </div>
         </div>
+        
+        <!-- 3D Project Showcase -->
+        <div id="projects-showcase-container"></div>
     </section>
 
     <!-- Contact Section -->
@@ -497,6 +506,9 @@
                 </div>
             </div>
         </div>
+        
+        <!-- 3D Contact Elements -->
+        <div id="contact-canvas-container"></div>
     </section>
 
     <!-- Footer -->
@@ -529,6 +541,13 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/RGBELoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js"></script>
     
     <!-- Custom JavaScript -->
     <script src="js/main.js"></script>

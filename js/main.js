@@ -1,7 +1,7 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Declare variables for external libraries
-    let AOS, Typed, particlesJS, THREE, imagesLoaded;
+    let AOS, Typed, particlesJS, THREE, imagesLoaded, Isotope;
 
     // Initialize loader
     setTimeout(function() {
@@ -137,87 +137,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initialize Three.js for hero section
-    const canvas = document.getElementById('hero-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        alpha: true,
-        antialias: true
-    });
-    
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    
-    // Create a group to hold all objects
-    const group = new THREE.Group();
-    scene.add(group);
-    
-    // Add ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-    
-    // Add directional light
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(10, 10, 10);
-    scene.add(directionalLight);
-    
-    // Create geometric shapes with pastel colors
-    const geometry1 = new THREE.TorusGeometry(3, 1, 16, 100);
-    const material1 = new THREE.MeshPhongMaterial({
-        color: 0xa0d2eb,
-        wireframe: true
-    });
-    const torus = new THREE.Mesh(geometry1, material1);
-    group.add(torus);
-    
-    const geometry2 = new THREE.IcosahedronGeometry(2, 0);
-    const material2 = new THREE.MeshPhongMaterial({
-        color: 0xffc8dd,
-        wireframe: true
-    });
-    const icosahedron = new THREE.Mesh(geometry2, material2);
-    group.add(icosahedron);
-    
-    const geometry3 = new THREE.OctahedronGeometry(1.5, 0);
-    const material3 = new THREE.MeshPhongMaterial({
-        color: 0xcdb4db,
-        wireframe: true
-    });
-    const octahedron = new THREE.Mesh(geometry3, material3);
-    group.add(octahedron);
-    
-    // Position camera
-    camera.position.z = 10;
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            camera.aspect = canvas.clientWidth / canvas.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-        }
-    });
-    
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        torus.rotation.x += 0.003;
-        torus.rotation.y += 0.005;
-        
-        icosahedron.rotation.x += 0.005;
-        icosahedron.rotation.y += 0.003;
-        
-        octahedron.rotation.x -= 0.004;
-        octahedron.rotation.z += 0.004;
-        
-        group.rotation.y += 0.002;
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
+    initHeroCanvas();
+    initAboutCanvas();
+    initSkillsCanvas();
+    initProjectsCanvas();
+    initContactCanvas();
 
     // Initialize Isotope for project filtering
     let iso;
@@ -381,6 +305,464 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Hero Canvas - 3D Animation
+function initHeroCanvas() {
+    const container = document.getElementById('hero-canvas-container');
+    
+    // Create scene
+    const scene = new THREE.Scene();
+    
+    // Create camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 20;
+    
+    // Create renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+    
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(directionalLight);
+    
+    // Create a group to hold all objects
+    const group = new THREE.Group();
+    scene.add(group);
+    
+    // Create geometric shapes with pastel colors
+    const torusGeometry = new THREE.TorusKnotGeometry(5, 1.5, 100, 16);
+    const torusMaterial = new THREE.MeshPhongMaterial({
+        color: 0xa0d2eb,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.8
+    });
+    const torusKnot = new THREE.Mesh(torusGeometry, torusMaterial);
+    group.add(torusKnot);
+    
+    // Create particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 1000;
+    const posArray = new Float32Array(particlesCount * 3);
+    
+    for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 50;
+    }
+    
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.1,
+        color: 0xffc8dd,
+        transparent: true,
+        opacity: 0.8
+    });
+    
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+    
+    // Add post-processing
+    const composer = new THREE.EffectComposer(renderer);
+    const renderPass = new THREE.RenderPass(scene, camera);
+    composer.addPass(renderPass);
+    
+    const bloomPass = new THREE.UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        1.5,  // strength
+        0.4,  // radius
+        0.85  // threshold
+    );
+    composer.addPass(bloomPass);
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+    });
+    
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        torusKnot.rotation.x += 0.003;
+        torusKnot.rotation.y += 0.005;
+        
+        group.rotation.y += 0.002;
+        
+        particlesMesh.rotation.x += 0.0005;
+        particlesMesh.rotation.y += 0.0005;
+        
+        composer.render();
+    }
+    
+    animate();
+}
+
+// About Canvas - Floating 3D Objects
+function initAboutCanvas() {
+    const container = document.getElementById('about-canvas-container');
+    
+    // Create scene
+    const scene = new THREE.Scene();
+    
+    // Create camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 20;
+    
+    // Create renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+    
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(directionalLight);
+    
+    // Create floating objects
+    const objects = [];
+    const colors = [0xa0d2eb, 0xffc8dd, 0xcdb4db];
+    const geometries = [
+        new THREE.IcosahedronGeometry(1, 0),
+        new THREE.TetrahedronGeometry(1, 0),
+        new THREE.OctahedronGeometry(1, 0),
+        new THREE.DodecahedronGeometry(1, 0)
+    ];
+    
+    for (let i = 0; i < 20; i++) {
+        const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+        const material = new THREE.MeshPhongMaterial({
+            color: colors[Math.floor(Math.random() * colors.length)],
+            transparent: true,
+            opacity: 0.7,
+            wireframe: Math.random() > 0.5
+        });
+        
+        const object = new THREE.Mesh(geometry, material);
+        
+        object.position.x = (Math.random() - 0.5) * 40;
+        object.position.y = (Math.random() - 0.5) * 40;
+        object.position.z = (Math.random() - 0.5) * 40;
+        
+        object.rotation.x = Math.random() * Math.PI;
+        object.rotation.y = Math.random() * Math.PI;
+        
+        object.scale.x = object.scale.y = object.scale.z = Math.random() * 2 + 0.5;
+        
+        scene.add(object);
+        objects.push({
+            mesh: object,
+            rotationSpeed: {
+                x: (Math.random() - 0.5) * 0.01,
+                y: (Math.random() - 0.5) * 0.01,
+                z: (Math.random() - 0.5) * 0.01
+            },
+            floatSpeed: (Math.random() - 0.5) * 0.01
+        });
+    }
+    
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        objects.forEach(obj => {
+            obj.mesh.rotation.x += obj.rotationSpeed.x;
+            obj.mesh.rotation.y += obj.rotationSpeed.y;
+            obj.mesh.rotation.z += obj.rotationSpeed.z;
+            
+            obj.mesh.position.y += Math.sin(Date.now() * 0.001) * obj.floatSpeed;
+        });
+        
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+}
+
+// Skills Canvas - Interactive 3D Skills Visualization
+function initSkillsCanvas() {
+    const container = document.getElementById('skills-canvas-container');
+    
+    // Create scene
+    const scene = new THREE.Scene();
+    
+    // Create camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 20;
+    
+    // Create renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+    
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(directionalLight);
+    
+    // Create a network of connected nodes
+    const nodes = [];
+    const connections = [];
+    
+    // Create nodes
+    for (let i = 0; i < 15; i++) {
+        const geometry = new THREE.SphereGeometry(0.3, 32, 32);
+        const material = new THREE.MeshPhongMaterial({
+            color: i % 2 === 0 ? 0xa0d2eb : 0xffc8dd,
+            transparent: true,
+            opacity: 0.8
+        });
+        
+        const node = new THREE.Mesh(geometry, material);
+        
+        node.position.x = (Math.random() - 0.5) * 30;
+        node.position.y = (Math.random() - 0.5) * 30;
+        node.position.z = (Math.random() - 0.5) * 30;
+        
+        scene.add(node);
+        nodes.push({
+            mesh: node,
+            originalPosition: node.position.clone(),
+            floatSpeed: Math.random() * 0.002 + 0.001
+        });
+    }
+    
+    // Create connections between nodes
+    for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+            if (Math.random() > 0.7) continue;
+            
+            const distance = nodes[i].mesh.position.distanceTo(nodes[j].mesh.position);
+            if (distance > 15) continue;
+            
+            const geometry = new THREE.BufferGeometry().setFromPoints([
+                nodes[i].mesh.position,
+                nodes[j].mesh.position
+            ]);
+            
+            const material = new THREE.LineBasicMaterial({
+                color: 0xcdb4db,
+                transparent: true,
+                opacity: 0.3
+            });
+            
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+            
+            connections.push({
+                line: line,
+                pointA: i,
+                pointB: j
+            });
+        }
+    }
+    
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        // Animate nodes
+        nodes.forEach(node => {
+            const time = Date.now() * node.floatSpeed;
+            node.mesh.position.y = node.originalPosition.y + Math.sin(time) * 2;
+            node.mesh.position.x = node.originalPosition.x + Math.cos(time) * 2;
+        });
+        
+        // Update connections
+        connections.forEach(connection => {
+            connection.line.geometry.dispose();
+            connection.line.geometry = new THREE.BufferGeometry().setFromPoints([
+                nodes[connection.pointA].mesh.position,
+                nodes[connection.pointB].mesh.position
+            ]);
+        });
+        
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+}
+
+// Projects Canvas - 3D Project Showcase
+function initProjectsCanvas() {
+    const container = document.getElementById('projects-showcase-container');
+    
+    // Create scene
+    const scene = new THREE.Scene();
+    
+    // Create camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 20;
+    
+    // Create renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+    
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(directionalLight);
+    
+    // Create a wave of particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 2000;
+    
+    const positions = new Float32Array(particlesCount * 3);
+    const colors = new Float32Array(particlesCount * 3);
+    
+    const colorChoices = [
+        [160/255, 210/255, 235/255], // light blue
+        [255/255, 200/255, 221/255], // light pink
+        [205/255, 180/255, 219/255]  // light purple
+    ];
+    
+    for (let i = 0; i < particlesCount; i++) {
+        const i3 = i * 3;
+        
+        // Position
+        positions[i3] = (Math.random() - 0.5) * 50;
+        positions[i3 + 1] = (Math.random() - 0.5) * 50;
+        positions[i3 + 2] = (Math.random() - 0.5) * 50;
+        
+        // Color
+        const colorIndex = Math.floor(Math.random() * colorChoices.length);
+        colors[i3] = colorChoices[colorIndex][0];
+        colors[i3 + 1] = colorChoices[colorIndex][1];
+        colors[i3 + 2] = colorChoices[colorIndex][2];
+    }
+    
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.2,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8
+    });
+    
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+    
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        const positions = particlesGeometry.attributes.position.array;
+        
+        for (let i = 0; i < particlesCount; i++) {
+            const i3 = i * 3;
+            
+            // Create a wave effect
+            const x = positions[i3];
+            const y = positions[i3 + 1];
+            const z = positions[i3 + 2];
+            
+            positions[i3 + 1] = y + Math.sin((Date.now() * 0.001) + (x * 0.1)) * 0.05;
+        }
+        
+        particlesGeometry.attributes.position.needsUpdate = true;
+        
+        particlesMesh.rotation.y += 0.001;
+        
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+}
+
+// Contact Canvas - 3D Contact Elements
+function initContactCanvas() {
+    const container = document.getElementById('contact-canvas-container');
+    
+    // Create scene
+    const scene = new THREE.Scene();
+    
+    // Create camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 20;
+    
+    // Create renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+    
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(directionalLight);
+    
+    // Create a flowing ribbon
+    const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-10, -5, 0),
+        new THREE.Vector3(-5, 5, 5),
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(5, -5, 5),
+        new THREE.Vector3(10, 0, 0)
+    ]);
+    
+    curve.closed = true;
+    
+    const points = curve.getPoints(50);
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    
+    const material = new THREE.LineBasicMaterial({
+        color: 0xa0d2eb,
+        linewidth: 2
+    });
+    
+    const curveObject = new THREE.Line(geometry, material);
+    scene.add(curveObject);
+    
+    // Create a tube along the curve
+    const tubeGeometry = new THREE.TubeGeometry(curve, 100, 0.5, 8, true);
+    const tubeMaterial = new THREE.MeshPhongMaterial({
+        color: 0xffc8dd,
+        transparent: true,
+        opacity: 0.6,
+        wireframe: true
+    });
+    
+    const tube = new THREE.Mesh(tubeGeometry, tubeMaterial);
+    scene.add(tube);
+    
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        curveObject.rotation.y += 0.005;
+        tube.rotation.y += 0.005;
+        
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+}
 
 // Create favicon.png for the project
 // This is a simple placeholder - in a real project, you'd create a proper favicon
