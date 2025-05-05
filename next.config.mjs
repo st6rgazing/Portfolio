@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Enable static exports for GitHub Pages
+  output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -8,12 +8,12 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true,
   },
-  // For GitHub Pages deployment
-  basePath: '/Portfolio', // This should match your repository name
-  assetPrefix: '/Portfolio/', // This helps with asset loading
-  trailingSlash: true, // Recommended for static exports
+  // Uncomment and modify this if you're not deploying to the root of your GitHub Pages domain
+  // basePath: '/your-repo-name',
+  // assetPrefix: '/your-repo-name/',
+  trailingSlash: true,
 };
 
 export default nextConfig;

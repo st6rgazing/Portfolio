@@ -53,11 +53,21 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom vibrant colors
-        vibrant: {
-          purple: "#8A2BE2",
-          blue: "#4169E1",
-          pink: "#FF69B4",
+        // Custom theme colors
+        blue: {
+          light: "#61DAFB",
+          DEFAULT: "#3B82F6",
+          dark: "#2563EB",
+        },
+        purple: {
+          light: "#A78BFA",
+          DEFAULT: "#8B5CF6",
+          dark: "#7C3AED",
+        },
+        pink: {
+          light: "#F472B6",
+          DEFAULT: "#EC4899",
+          dark: "#DB2777",
         },
       },
       borderRadius: {
@@ -74,33 +84,63 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-position": "0% 50%",
+          },
+          "50%": {
+            "background-position": "100% 50%",
+          },
+        },
+        "gradient-y": {
+          "0%, 100%": {
+            "background-position": "50% 0%",
+          },
+          "50%": {
+            "background-position": "50% 100%",
+          },
+        },
+        "gradient-xy": {
+          "0%, 100%": {
+            "background-position": "0% 0%",
+          },
+          "25%": {
+            "background-position": "100% 0%",
+          },
+          "50%": {
+            "background-position": "100% 100%",
+          },
+          "75%": {
+            "background-position": "0% 100%",
+          },
+        },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-20px)" },
+          "50%": { transform: "translateY(-10px)" },
         },
         pulse: {
-          "0%, 100%": { opacity: 1 },
-          "50%": { opacity: 0.5 },
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
         },
         shimmer: {
-          "0%": { backgroundPosition: "-500px 0" },
-          "100%": { backgroundPosition: "500px 0" },
+          "0%": { backgroundPosition: "-1000px 0" },
+          "100%": { backgroundPosition: "1000px 0" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "gradient-x": "gradient-x 15s ease infinite",
+        "gradient-y": "gradient-y 15s ease infinite",
+        "gradient-xy": "gradient-xy 15s ease infinite",
         float: "float 6s ease-in-out infinite",
         pulse: "pulse 3s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "gradient-rainbow": "linear-gradient(45deg, , #FFC0CB, #e8bdff, #bde2ff",
-        "gradient-sunset": "linear-gradient(to right, #FF512F, #F09819)",
-        "gradient-ocean": "linear-gradient(to right, #1CB5E0, #000851)",
-        "gradient-candy": "linear-gradient(to right, #FC466B, #3F5EFB)",
+        "hero-pattern":
+          "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
       },
     },
   },

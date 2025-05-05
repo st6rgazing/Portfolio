@@ -1,32 +1,21 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/mode-toggle"
-import { useMobile } from "@/hooks/use-mobile"
-import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
 
-export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const isMobile = useMobile()
+export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const { theme, setTheme } = useTheme()
 
-  // Close mobile menu when switching to desktop
-  useEffect(() => {
-    if (!isMobile) {
-      setIsOpen(false)
-    }
-  }, [isMobile])
-
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
-        setScrolled(true)
+        setIsScrolled(true)
       } else {
-        setScrolled(false)
+        setIsScrolled(false)
       }
     }
 
@@ -34,102 +23,86 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Use hash links for GitHub Pages compatibility
-  const scrollToSection = (id) => (e) => {
-    e.preventDefault()
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-      if (isOpen) setIsOpen(false)
-      window.history.pushState({}, "", `#${id}`)
-    }
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
   }
 
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
+  ]
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
-        scrolled ? "bg-background/80 backdrop-blur-md border-b shadow-sm" : "bg-transparent"
+    <nav
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-background/80 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="./" className="font-bold text-xl">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-vibrant-purple to-vibrant-pink">
-            Portfolio
-          </span>
-        </Link>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex-shrink-0 font-bold text-xl">
+            <a href="#home" className="flex items-center">
+              <span className="text-gradient">Portfolio</span>
+            </a>
+          </div>
 
-        {isMobile ? (
-          <>
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              <span className="sr-only">Toggle menu</span>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <a key={link.name} href={link.href} className="text-foreground/80 hover:text-primary transition-colors">
+                {link.name}
+              </a>
+            ))}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle theme"
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             </Button>
+          </div>
 
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.2 }}
-                className="fixed inset-0 top-16 z-50 bg-background/95 backdrop-blur-md p-6"
-              >
-                <nav className="flex flex-col space-y-6 text-lg">
-                  <a
-                    href="#projects"
-                    onClick={scrollToSection("projects")}
-                    className="hover:text-vibrant-purple transition-colors"
-                  >
-                    Projects
-                  </a>
-                  <a
-                    href="#about"
-                    onClick={scrollToSection("about")}
-                    className="hover:text-vibrant-purple transition-colors"
-                  >
-                    About
-                  </a>
-                  <a
-                    href="#contact"
-                    onClick={scrollToSection("contact")}
-                    className="hover:text-vibrant-purple transition-colors"
-                  >
-                    Contact
-                  </a>
-                  <ModeToggle />
-                </nav>
-              </motion.div>
-            )}
-          </>
-        ) : (
-          <nav className="flex items-center gap-8">
-            <a
-              href="#projects"
-              onClick={scrollToSection("projects")}
-              className="text-sm font-medium transition-colors hover:text-vibrant-purple relative group"
+          {/* Mobile Navigation Toggle */}
+          <div className="flex md:hidden items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="mr-2"
+              aria-label="Toggle theme"
             >
-              Projects
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a
-              href="#about"
-              onClick={scrollToSection("about")}
-              className="text-sm font-medium transition-colors hover:text-vibrant-purple relative group"
-            >
-              About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a
-              href="#contact"
-              onClick={scrollToSection("contact")}
-              className="text-sm font-medium transition-colors hover:text-vibrant-purple relative group"
-            >
-              Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <ModeToggle />
-          </nav>
-        )}
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
+            <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle menu">
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
       </div>
-    </header>
+
+      {/* Mobile Navigation Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-background/95 backdrop-blur-md shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary/10 hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
   )
 }

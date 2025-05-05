@@ -1,96 +1,114 @@
-"use client"
-import { Github, Linkedin, Twitter, Sparkles } from "lucide-react"
+import { Github, Linkedin, Mail, Twitter } from "lucide-react"
 
-export function Footer() {
-  // Use hash links for GitHub Pages compatibility
-  const scrollToSection = (id) => (e) => {
-    e.preventDefault()
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-      window.history.pushState({}, "", `#${id}`)
-    }
-  }
+export default function Footer() {
+  const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t py-12 bg-background/80 backdrop-blur-sm relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-dots opacity-30"></div>
-      </div>
+    <footer className="relative">
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background"></div>
+      <div className="absolute inset-0 grid-pattern opacity-10"></div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-8 md:mb-0">
-            <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-vibrant-purple to-vibrant-pink mb-2">
+      <div className="container px-4 sm:px-6 py-12 relative">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-2">
+            <a href="#home" className="text-2xl font-bold text-gradient">
               Portfolio
-            </div>
-            <p className="text-sm text-muted-foreground max-w-md">
-              Showcasing a blend of technical CS projects and interactive media creations. © {new Date().getFullYear()}{" "}
-              All rights reserved.
+            </a>
+            <p className="mt-4 text-muted-foreground max-w-md">
+              Creating innovative solutions at the intersection of technology and creativity. Specializing in both
+              interactive media and computer science projects.
             </p>
+            <div className="flex space-x-4 mt-6">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-blue transition-colors"
+              >
+                <Github className="h-5 w-5" />
+                <span className="sr-only">GitHub</span>
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-purple transition-colors"
+              >
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-blue transition-colors"
+              >
+                <Twitter className="h-5 w-5" />
+                <span className="sr-only">Twitter</span>
+              </a>
+              <a href="mailto:contact@yourname.com" className="text-muted-foreground hover:text-pink transition-colors">
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Email</span>
+              </a>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-12 gap-y-4 md:flex md:gap-12">
-            <a
-              href="#projects"
-              onClick={scrollToSection("projects")}
-              className="text-sm text-muted-foreground hover:text-vibrant-purple transition-colors"
-            >
-              Projects
-            </a>
-            <a
-              href="#about"
-              onClick={scrollToSection("about")}
-              className="text-sm text-muted-foreground hover:text-vibrant-purple transition-colors"
-            >
-              About
-            </a>
-            <a
-              href="#contact"
-              onClick={scrollToSection("contact")}
-              className="text-sm text-muted-foreground hover:text-vibrant-purple transition-colors"
-            >
-              Contact
-            </a>
+          <div>
+            <h3 className="font-semibold text-lg mb-4 text-gradient">Quick Links</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#home" className="text-muted-foreground hover:text-blue transition-colors">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="text-muted-foreground hover:text-purple transition-colors">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#skills" className="text-muted-foreground hover:text-pink transition-colors">
+                  Skills
+                </a>
+              </li>
+              <li>
+                <a href="#projects" className="text-muted-foreground hover:text-blue transition-colors">
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="text-muted-foreground hover:text-purple transition-colors">
+                  Contact
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <div className="flex gap-4 mt-8 md:mt-0">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-vibrant-purple transition-colors p-2 rounded-full hover:bg-vibrant-purple/10"
-            >
-              <Github className="h-5 w-5" />
-              <span className="sr-only">GitHub</span>
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-vibrant-pink transition-colors p-2 rounded-full hover:bg-vibrant-pink/10"
-            >
-              <Linkedin className="h-5 w-5" />
-              <span className="sr-only">LinkedIn</span>
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-vibrant-blue transition-colors p-2 rounded-full hover:bg-vibrant-blue/10"
-            >
-              <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground hover:text-vibrant-purple transition-colors p-2 rounded-full hover:bg-vibrant-purple/10"
-            >
-              <Sparkles className="h-5 w-5" />
-              <span className="sr-only">Portfolio</span>
-            </a>
+          <div>
+            <h3 className="font-semibold text-lg mb-4 text-gradient">Project Categories</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#projects" className="text-muted-foreground hover:text-pink transition-colors">
+                  All Projects
+                </a>
+              </li>
+              <li>
+                <a href="#projects" className="text-muted-foreground hover:text-blue transition-colors">
+                  Creative Projects
+                </a>
+              </li>
+              <li>
+                <a href="#projects" className="text-muted-foreground hover:text-purple transition-colors">
+                  Technical Projects
+                </a>
+              </li>
+            </ul>
           </div>
+        </div>
+
+        <div className="border-t border-muted/20 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center">
+          <p className="text-sm text-muted-foreground">© {currentYear} Your Name. All rights reserved.</p>
+          <p className="text-sm text-gradient mt-4 sm:mt-0">Designed & Built with ❤️</p>
         </div>
       </div>
     </footer>

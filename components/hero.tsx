@@ -1,157 +1,255 @@
 "use client"
 
+import { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowDown, Code, Palette, Sparkles } from "lucide-react"
+import { ArrowRight, Download, Github, Linkedin } from "lucide-react"
 
-export function Hero() {
-  const scrollToProjects = () => {
-    const projectsSection = document.getElementById("projects")
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: "smooth" })
-      window.history.pushState({}, "", "#projects")
+export default function Hero() {
+  const [isMounted, setIsMounted] = useState(false)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    setIsMounted(true)
+
+    // Canvas animation
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    let width = (canvas.width = window.innerWidth)
+    let height = (canvas.height = window.innerHeight)
+
+    const particles: Particle[] = []
+    const particleCount = 100
+    const colors = ["#3B82F6", "#8B5CF6", "#EC4899"]
+
+    class Particle {
+      x: number
+      y: number
+      vx: number
+      vy: number
+      radius: number
+      color: string
+
+      constructor() {
+        this.x = Math.random() * width
+        this.y = Math.random() * height
+        this.vx = Math.random() * 2 - 1
+        this.vy = Math.random() * 2 - 1
+        this.radius = Math.random() * 3 + 1
+        this.color = colors[Math.floor(Math.random() * colors.length)]
+      }
+
+      update() {
+        this.x += this.vx
+        this.y += this.vy
+
+        if (this.x < 0 || this.x > width) this.vx = -this.vx
+        if (this.y < 0 || this.y > height) this.vy = -this.vy
+      }
+
+      draw(ctx: CanvasRenderingContext2D) {
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+        ctx.fillStyle = this.color
+        ctx.fill()
+      }
     }
+
+    // Create particles
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle())
+    }
+
+    function connectParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x
+          const dy = particles[i].y - particles[j].y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          if (distance < 150) {
+            ctx.beginPath()
+            ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 - distance / 1500})`
+            ctx.lineWidth = 0.5
+            ctx.moveTo(particles[i].x, particles[i].y)
+            ctx.lineTo(particles[j].x, particles[j].y)
+            ctx.stroke()
+          }
+        }
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate)
+      ctx.clearRect(0, 0, width, height)
+
+      particles.forEach((particle) => {
+        particle.update()
+        particle.draw(ctx)
+      })
+
+      connectParticles()
+    }
+
+    animate()
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth
+      height = canvas.height = window.innerHeight
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
+  if (!isMounted) {
+    return null
   }
 
-  // Floating elements animation variants
-  const floatingElements = Array(15)
-    .fill(null)
-    .map((_, i) => ({
-      size: Math.random() * 20 + 5,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 5,
-      duration: Math.random() * 10 + 10,
-    }))
-
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20">
-      {/* Colorful background elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-dots">
-        <div className="absolute inset-0 bg-gradient-radial from-vibrant-purple/10 via-transparent to-transparent"></div>
+    <section id="home" className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden">
+      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
-        {/* Floating elements */}
-        {floatingElements.map((el, index) => (
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background z-0" />
+
+      <div className="container px-4 sm:px-6 relative z-10">
+        <div className="flex flex-col items-center text-center space-y-10">
           <motion.div
-            key={index}
-            className="absolute rounded-full bg-gradient-to-r from-vibrant-purple/30 to-vibrant-pink/30 backdrop-blur-md"
-            style={{
-              width: el.size,
-              height: el.size,
-              left: `${el.x}%`,
-              top: `${el.y}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: el.duration,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: el.delay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col space-y-6 max-w-3xl"
+          >
+            <div className="space-y-2">
+              <motion.h1
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight"
+              >
+                <span className="block">Hi, I'm</span>
+                <span className="block text-gradient glow-text animate-gradient-x">Your Name</span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="text-xl md:text-2xl text-muted-foreground"
+              >
+                Creative Developer & Computer Scientist
+              </motion.p>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="relative"
+            >
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue via-purple to-pink rounded-lg blur opacity-30 animate-pulse"></div>
+              <div className="relative glass rounded-lg p-6">
+                <p className="text-lg text-muted-foreground">
+                  I create innovative digital experiences at the intersection of technology and creativity. Specializing
+                  in both interactive media and computer science, I bring ideas to life with code and imagination.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="flex flex-wrap justify-center gap-4"
+            >
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full bg-gradient-blue-purple hover:opacity-90 transition-opacity"
+              >
+                <a href="#projects">
+                  View Projects <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full border-purple hover:border-pink transition-colors"
+              >
+                <Download className="mr-2 h-4 w-4" /> Download Resume
+              </Button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="flex space-x-4 justify-center"
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                asChild
+                className="hover:bg-blue/10 hover:text-blue transition-colors"
+              >
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                  <Github className="h-5 w-5" />
+                  <span className="sr-only">GitHub</span>
+                </a>
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                asChild
+                className="hover:bg-purple/10 hover:text-purple transition-colors"
+              >
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="h-5 w-5" />
+                  <span className="sr-only">LinkedIn</span>
+                </a>
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            className="w-full max-w-md mx-auto"
+          >
+            <div className="relative">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue via-purple to-pink rounded-full blur opacity-75"></div>
+              <div className="relative h-2 bg-background rounded-full overflow-hidden">
+                <div className="h-full w-2/3 animated-gradient rounded-full"></div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 text-center">
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto"
+          transition={{ delay: 1.5, duration: 0.8, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
         >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
+          <a
+            href="#about"
+            className="flex flex-col items-center text-muted-foreground hover:text-foreground transition-colors"
           >
-            <motion.div
-              whileHover={{ y: -5, scale: 1.05 }}
-              className="flex items-center gap-2 bg-vibrant-purple/20 text-vibrant-purple px-4 py-2 rounded-full backdrop-blur-sm border border-vibrant-purple/20 shadow-lg shadow-vibrant-purple/10"
-            >
-              <Code className="h-5 w-5" />
-              <span className="font-medium">CS Projects</span>
-            </motion.div>
-            <motion.div
-              whileHover={{ y: -5, scale: 1.05 }}
-              className="flex items-center gap-2 bg-vibrant-pink/20 text-vibrant-pink px-4 py-2 rounded-full backdrop-blur-sm border border-vibrant-pink/20 shadow-lg shadow-vibrant-pink/10"
-            >
-              <Palette className="h-5 w-5" />
-              <span className="font-medium">Creative Work</span>
-            </motion.div>
-            <motion.div
-              whileHover={{ y: -5, scale: 1.05 }}
-              className="flex items-center gap-2 bg-vibrant-blue/20 text-vibrant-blue px-4 py-2 rounded-full backdrop-blur-sm border border-vibrant-blue/20 shadow-lg shadow-vibrant-blue/10"
-            >
-              <Sparkles className="h-5 w-5" />
-              <span className="font-medium">Innovation</span>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="relative mb-8"
-          >
-            <motion.div
-              className="absolute -inset-1 bg-gradient-rainbow opacity-75 blur-xl"
-              animate={{
-                rotate: [0, 360],
-                scale: [0.95, 1.05, 0.95],
-              }}
-              transition={{
-                rotate: { duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
-                scale: { duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
-              }}
-            />
-            <h1 className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-vibrant-purple via-vibrant-blue to-vibrant-pink leading-tight">
-              Creative Developer & Designer
-            </h1>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl mb-12 text-foreground/80 max-w-2xl mx-auto"
-          >
-            Showcasing a blend of technical CS projects and interactive media creations
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="relative"
-          >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-vibrant-purple to-vibrant-pink rounded-full opacity-75 blur-sm animate-pulse"></div>
-            <Button
-              size="lg"
-              onClick={scrollToProjects}
-              className="relative bg-gradient-to-r from-vibrant-purple to-vibrant-pink hover:opacity-90 transition-all duration-300 shadow-lg shadow-vibrant-purple/20"
-            >
-              View My Work
-              <ArrowDown className="ml-2 h-4 w-4" />
-            </Button>
-          </motion.div>
+            <span className="text-sm mb-2">Scroll Down</span>
+            <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center">
+              <div className="w-1 h-2 bg-current rounded-full mt-2 animate-bounce"></div>
+            </div>
+          </a>
         </motion.div>
       </div>
-
-      {/* Animated scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-      >
-        <div className="p-2 rounded-full bg-vibrant-purple/20 backdrop-blur-sm border border-vibrant-purple/30 shadow-lg shadow-vibrant-purple/10">
-          <ArrowDown className="h-6 w-6 text-vibrant-purple" />
-        </div>
-      </motion.div>
     </section>
   )
 }
