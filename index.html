@@ -1,557 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Portfolio</title>
-    
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Loader -->
-    <div class="loader-container">
-        <div class="loader">
-            <span></span>
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader">
+      <div class="cube">
+        <div class="sides">
+          <div class="top"></div>
+          <div class="right"></div>
+          <div class="bottom"></div>
+          <div class="left"></div>
+          <div class="front"></div>
+          <div class="back"></div>
         </div>
+      </div>
     </div>
+    <div class="loading-text">Loading Experience</div>
+  </div>
 
-    <!-- Particle Background -->
-    <div id="particles-js"></div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="logo">Portfolio</div>
-            <div class="menu-toggle">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
+  <!-- Custom cursor -->
+  <div class="cursor-outer"></div>
+  <div class="cursor-inner"></div>
+  
+  <!-- Noise overlay -->
+  <div class="noise"></div>
+  
+  <!-- Gradient orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  
+  <!-- Main navigation -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-text">Portfolio</span>
+      <div class="logo-dot"></div>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#home" class="nav-link" data-text="Home">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link" data-text="About">About</a></li>
+        <li class="nav-item"><a href="#projects" class="nav-link" data-text="Projects">Projects</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link" data-text="Contact">Contact</a></li>
+      </ul>
     </nav>
+    <div class="menu-toggle">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
 
-    <!-- Home Section with 3D Element -->
-    <section id="home" class="home-section">
-        <div class="container">
-            <div class="home-content" data-aos="fade-up">
-                <h1>Hello, I'm <span class="highlight">Your Name</span></h1>
-                <div class="typed-container">
-                    <span id="typed"></span>
+  <!-- Mobile navigation -->
+  <div class="mobile-nav">
+    <div class="mobile-nav-inner">
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link">Home</a></li>
+        <li class="mobile-nav-item"><a href="#about" class="mobile-nav-link">About</a></li>
+        <li class="mobile-nav-item"><a href="#projects" class="mobile-nav-link">Projects</a></li>
+        <li class="mobile-nav-item"><a href="#contact" class="mobile-nav-link">Contact</a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <div class="social-links">
+          <a href="https://github.com/st6rgazing" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/mariam-shafey-671763351/" class="social-link"><i class="fab fa-linkedin"></i></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress indicator -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <!-- Hero section -->
+  <section id="home" class="hero">
+    <div class="hero-canvas-container">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+    <div class="floating-objects">
+      <div class="floating-object floating-object-1"></div>
+      <div class="floating-object floating-object-2"></div>
+      <div class="floating-object floating-object-3"></div>
+      <div class="floating-object floating-object-4"></div>
+      <div class="floating-object floating-object-5"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text-container">
+        <h1 class="hero-title">
+        </h1>
+        <div class="hero-name">
+          <span class="hero-name-text" data-text="Mariam Shafey">Mariam Shafey</span>
+        </div>
+        <p class="hero-description">Building responsive, user-friendly applications for web and mobile platforms with modern technologies.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary magnetic-btn">
+            <span class="btn-text">View Projects</span>
+            <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
+          </a>
+          <a href="#contact" class="btn btn-secondary magnetic-btn">
+            <span class="btn-text">Contact Me</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+      <div class="hero-shape hero-shape-3"></div>
+    </div>
+  </section>
+
+  <!-- About section -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">About Me</div>
+        <h2 class="section-title">Who I Am</h2>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <p class="about-paragraph">Hello! I'm Mariam Shafey, a passionate web and mobile developer with expertise in creating responsive, user-friendly applications. I specialize in building seamless experiences across platforms using modern frameworks and technologies.</p>
+          <p class="about-paragraph">With a strong foundation in both frontend and backend development, I craft solutions that are not only visually appealing but also performant and scalable. My approach combines technical precision with creative problem-solving to deliver applications that exceed expectations.</p>
+          
+          <div class="skills">
+            <h3 class="skills-title">My Skills</h3>
+            <div class="skills-grid">
+  <div class="skill-item" data-skill="HTML5/CSS3">
+    <div class="skill-icon"><i class="fab fa-html5"></i></div>
+    <div class="skill-name">HTML5/CSS3</div>
+    <div class="skill-bar">
+      <div class="skill-progress" style="width: 95%"></div>
+    </div>
+  </div>
+  <div class="skill-item" data-skill="JavaScript">
+    <div class="skill-icon"><i class="fab fa-js"></i></div>
+    <div class="skill-name">JavaScript</div>
+    <div class="skill-bar">
+      <div class="skill-progress" style="width: 90%"></div>
+    </div>
+  </div>
+  <div class="skill-item" data-skill="React">
+    <div class="skill-icon"><i class="fab fa-react"></i></div>
+    <div class="skill-name">React</div>
+    <div class="skill-bar">
+      <div class="skill-progress" style="width: 88%"></div>
+    </div>
+  </div>
+  <div class="skill-item" data-skill="React Native">
+    <div class="skill-icon"><i class="fab fa-react"></i></div>
+    <div class="skill-name">React Native</div>
+    <div class="skill-bar">
+      <div class="skill-progress" style="width: 85%"></div>
+    </div>
+  </div>
+  <div class="skill-item" data-skill="Node.js">
+    <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+    <div class="skill-name">Node.js</div>
+    <div class="skill-bar">
+      <div class="skill-progress" style="width: 82%"></div>
+    </div>
+  </div>
+  <div class="skill-item" data-skill="UI/UX">
+    <div class="skill-icon"><i class="fas fa-mobile-alt"></i></div>
+    <div class="skill-name">Mobile Development</div>
+    <div class="skill-bar">
+      <div class="skill-progress" style="width: 90%"></div>
+    </div>
+  </div>
+</div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="about-3d-container"><img src="assets/me.jpg" alt="My Photo" class="about-photo" />
+            <canvas id="about-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ribbon-container">
+      <canvas id="ribbon-canvas"></canvas>
+    </div>
+    <div class="about-shapes">
+      <div class="about-shape about-shape-1"></div>
+      <div class="about-shape about-shape-2"></div>
+    </div>
+  </section>
+
+  <!-- Projects section -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">My Work</div>
+        <h2 class="section-title">Featured Projects</h2>
+      </div>
+      <div class="projects-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="creative">Creative</button>
+        <button class="filter-btn" data-filter="technical">Technical</button>
+      </div>
+      <div class="projects-grid">
+        <!-- Creative Projects -->
+        <div class="project technical project-card" data-category="technical">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <img src="assets/sawty.png" alt="Immersive Art Gallery">
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://sawty-voting.vercel.app/" class="project-link"><i class="fas fa-eye"></i></a>
+                  <a href="https://github.com/st6rgazing/sawty-voting" class="project-link"><i class="fab fa-github"></i></a>
                 </div>
-                <p>Welcome to my creative portfolio</p>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn primary-btn">View Projects</a>
-                    <a href="#contact" class="btn secondary-btn">Contact Me</a>
-                </div>
+              </div>
             </div>
+            <div class="project-content">
+              <h3 class="project-title">Sawty</h3>
+              <p class="project-description">A responsive voting platform developed as the front-end for voting using Quantum cryptography.</p>
+              <div class="project-tags">
+                <span class="project-tag">Qiskit</span>
+                <span class="project-tag">React</span>
+                <span class="project-tag">Node.js</span>
+                <span class="project-tag">MongoDB</span>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <!-- 3D Hero Canvas -->
-        <div id="hero-canvas-container"></div>
-        
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <div>
-                <span class="scroll-arrow">
-                    <span></span>
-                    <span></span>
-                </span>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>About Me</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-image" data-aos="fade-right">
-                    <div class="image-wrapper">
-                        <img src="https://via.placeholder.com/400" alt="Profile Picture">
-                        <div class="floating-shapes">
-                            <div class="shape shape-1"></div>
-                            <div class="shape shape-2"></div>
-                            <div class="shape shape-3"></div>
-                            <div class="shape shape-4"></div>
-                        </div>
-                    </div>
+        <div class="project technical project-card" data-category="technical">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <img src="assets/sunset.png" alt="Generative Music Visualizer">
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://i5.abudhabi.nyu.edu/~mom8702/sunset/templates/index.html" class="project-link"><i class="fas fa-eye"></i></a>
+                  <a href="https://github.com/st6rgazing/FinalAssignment_LOC" class="project-link"><i class="fab fa-github"></i></a>
                 </div>
-                <div class="about-text" data-aos="fade-left">
-                    <h3>Who am I?</h3>
-                    <p>I'm a passionate designer and developer with a keen eye for detail and a love for creating beautiful, functional digital experiences. With a background in both creative and technical fields, I bring a unique perspective to every project.</p>
-                    
-                    <h3>My Journey</h3>
-                    <p>My journey began with a curiosity about how things work and a desire to create. This led me to explore various creative and technical disciplines, ultimately finding my passion at the intersection of design and development.</p>
-                    
-                    <div class="personal-info">
-                        <div class="info-item">
-                            <span class="info-title">Name:</span>
-                            <span class="info-value">Your Name</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-title">Email:</span>
-                            <span class="info-value">your.email@example.com</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-title">Location:</span>
-                            <span class="info-value">Your Location</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-title">Availability:</span>
-                            <span class="info-value">Available for freelance</span>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    </div>
-                    
-                    <a href="#" class="btn primary-btn">Download CV</a>
-                </div>
+              </div>
             </div>
+            <div class="project-content">
+              <h3 class="project-title">Sunset Voyages</h3>
+              <p class="project-description">A website for a travel agency called 'Sunset Voyages'.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML/CSS</span>
+                <span class="project-tag">JS</span>
+                <span class="project-tag">SQLite</span>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <!-- 3D Floating Objects -->
-        <div id="about-canvas-container"></div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>My Skills</h2>
-                <div class="section-divider"></div>
+        <!-- Technical Projects -->
+        <div class="project creative project-card" data-category="creative">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <img src="assets/hungergames.png" alt="Data Visualization Dashboard">
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://genesisreyes18.github.io/TheHungerGames/#home" class="project-link"><i class="fas fa-eye"></i></a>
+                  <a href="https://github.com/genesisreyes18/TheHungerGames" class="project-link"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
             </div>
-            
-            <div class="skills-container">
-                <div class="skills-category" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Design</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-paint-brush"></i></div>
-                            <h4>UI/UX Design</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-pencil-ruler"></i></div>
-                            <h4>Graphic Design</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-drafting-compass"></i></div>
-                            <h4>Prototyping</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-palette"></i></div>
-                            <h4>Illustration</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skills-category" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Development</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-html5"></i></div>
-                            <h4>HTML/CSS</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-js"></i></div>
-                            <h4>JavaScript</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-react"></i></div>
-                            <h4>React</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-node-js"></i></div>
-                            <h4>Node.js</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="70%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skills-category" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Tools</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-figma"></i></div>
-                            <h4>Figma</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-adobe"></i></div>
-                            <h4>Adobe Suite</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-code-branch"></i></div>
-                            <h4>Git</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-terminal"></i></div>
-                            <h4>Command Line</h4>
-                            <div class="skill-progress">
-                                <div class="progress-bar" data-width="75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="project-content">
+              <h3 class="project-title">The Hunger Games</h3>
+              <p class="project-description">A video website that shows the story of course registration.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML/CSS</span>
+                <span class="project-tag">JSS</span>
+                <span class="project-tag">Premiere Pro</span>
+              </div>
             </div>
+          </div>
         </div>
         
-        <!-- Interactive 3D Skills Visualization -->
-        <div id="skills-canvas-container"></div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>My Projects</h2>
-                <div class="section-divider"></div>
+        <div class="project creative technical project-card" data-category="creative technical">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <img src="assets/portfolio.png" alt="E-commerce Platform">
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="fas fa-eye"></i></a>
+                  <a href="#https://github.com/st6rgazing/Portfolio" class="project-link"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
             </div>
-            
-            <div class="filter-buttons" data-aos="fade-up">
-                <button class="filter-btn active" data-filter="*">All</button>
-                <button class="filter-btn" data-filter=".creative">Creative</button>
-                <button class="filter-btn" data-filter=".technical">Technical</button>
+            <div class="project-content">
+              <h3 class="project-title">Portfolio Website</h3>
+              <p class="project-description">A responsive portfolio website with modern animations and interactive elements.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML</span>
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">CSS</span>
+              </div>
             </div>
-            
-            <div class="projects-grid" data-aos="fade-up">
-                <!-- Project 1 -->
-                <div class="project-item creative">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="https://via.placeholder.com/600x400" alt="Project 1">
-                            <div class="project-overlay">
-                                <div class="project-category">Creative</div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link"><i class="fas fa-link"></i></a>
-                                    <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Creative Project 1</h3>
-                            <p class="project-description">A beautiful design project showcasing creative skills and artistic vision.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Figma</span>
-                                <span class="tech-tag">Photoshop</span>
-                                <span class="tech-tag">Illustration</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <div class="project-item technical">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="https://via.placeholder.com/600x400" alt="Project 2">
-                            <div class="project-overlay">
-                                <div class="project-category">Technical</div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link"><i class="fas fa-link"></i></a>
-                                    <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Technical Project 1</h3>
-                            <p class="project-description">A complex web application demonstrating technical expertise and problem-solving skills.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">React</span>
-                                <span class="tech-tag">Node.js</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="project-item creative">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="https://via.placeholder.com/600x400" alt="Project 3">
-                            <div class="project-overlay">
-                                <div class="project-category">Creative</div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link"><i class="fas fa-link"></i></a>
-                                    <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Creative Project 2</h3>
-                            <p class="project-description">An innovative design project showcasing creativity and attention to detail.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">UI/UX</span>
-                                <span class="tech-tag">Illustrator</span>
-                                <span class="tech-tag">After Effects</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 4 -->
-                <div class="project-item technical">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="https://via.placeholder.com/600x400" alt="Project 4">
-                            <div class="project-overlay">
-                                <div class="project-category">Technical</div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link"><i class="fas fa-link"></i></a>
-                                    <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Technical Project 2</h3>
-                            <p class="project-description">A robust web application showcasing technical skills and coding expertise.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML/CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">API Integration</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 5 -->
-                <div class="project-item creative">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="https://via.placeholder.com/600x400" alt="Project 5">
-                            <div class="project-overlay">
-                                <div class="project-category">Creative</div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link"><i class="fas fa-link"></i></a>
-                                    <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Creative Project 3</h3>
-                            <p class="project-description">A visually stunning project showcasing artistic vision and creative problem-solving.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Branding</span>
-                                <span class="tech-tag">Typography</span>
-                                <span class="tech-tag">Color Theory</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 6 -->
-                <div class="project-item technical">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="https://via.placeholder.com/600x400" alt="Project 6">
-                            <div class="project-overlay">
-                                <div class="project-category">Technical</div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link"><i class="fas fa-link"></i></a>
-                                    <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Technical Project 3</h3>
-                            <p class="project-description">An advanced web application demonstrating technical expertise and innovative solutions.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Three.js</span>
-                                <span class="tech-tag">WebGL</span>
-                                <span class="tech-tag">GSAP</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
         
-        <!-- 3D Project Showcase -->
-        <div id="projects-showcase-container"></div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Get In Touch</h2>
-                <div class="section-divider"></div>
-            </div>
-            
-            <div class="contact-container">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Contact Information</h3>
-                    <p>Feel free to reach out to me for any inquiries or collaboration opportunities. I'm always open to discussing new projects and ideas.</p>
-                    
-                    <div class="info-items">
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="info-content">
-                                <h4>Location</h4>
-                                <p>Your City, Country</p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="info-content">
-                                <h4>Email</h4>
-                                <p>your.email@example.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="info-content">
-                                <h4>Phone</h4>
-                                <p>+1 (123) 456-7890</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    </div>
+        <!-- Mixed Category Project -->
+        <div class="project creative project-card" data-category="creative">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <img src="assets/comic.png" alt="Interactive Storytelling Experience">
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://saamia1.github.io/Interactive-Comic/" class="project-link"><i class="fas fa-eye"></i></a>
+                  <a href="https://github.com/saamia1/Interactive-Comic" class="project-link"><i class="fab fa-github"></i></a>
                 </div>
-                
-                <div class="contact-form" data-aos="fade-left">
-                    <h3>Send Me a Message</h3>
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                            <label for="name">Your Name</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                            <label for="email">Your Email</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                            <label for="subject">Subject</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-                            <label for="message">Your Message</label>
-                        </div>
-                        
-                        <button type="submit" class="btn primary-btn">Send Message</button>
-                    </form>
-                </div>
+              </div>
             </div>
+            <div class="project-content">
+              <h3 class="project-title">Interactive Comic</h3>
+              <p class="project-description">An interactive comic website that tells a story about a penguin.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML/CSS</span>
+                <span class="project-tag">JS</span>
+                <span class="project-tag">iBisPaintX</span>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <!-- 3D Contact Elements -->
-        <div id="contact-canvas-container"></div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">Portfolio</div>
-                <p class="footer-text">© 2023 Your Name. All rights reserved.</p>
-                <div class="footer-social">
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <div class="project creative project-card" data-category="creative">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <img src="assets/sound.png" alt="3D Product Configurator">
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://alinoorisnerd.github.io/commlab_assign3/" class="project-link"><i class="fas fa-eye"></i></a>
+                  <a href="https://alinoorisnerd.github.io/commlab_assign3/" class="project-link"><i class="fab fa-github"></i></a>
                 </div>
+              </div>
             </div>
+            <div class="project-content">
+              <h3 class="project-title">Echoes of a Day</h3>
+              <p class="project-description">A website that told a story through sound.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML</span>
+                <span class="project-tag">CSS</span>
+                <span class="project-tag">JS</span>
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+      <div class="dynamic-bg">
+        <canvas id="dynamic-bg-canvas"></canvas>
+      </div>
+      <div class="projects-showcase">
+        <!-- <div class="showcase-container">
+          <canvas id="projects-canvas"></canvas>
+        </div> -->
+      </div>
+    </div>
+  </section>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+  <!-- Contact section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">Get In Touch</div>
+        <h2 class="section-title">Let's Connect</h2>
+      </div>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-card-content">
+              <h3 class="contact-card-title">Email</h3>
+              <p class="contact-card-text">mis9424@nyu.edu</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-card-content">
+              <h3 class="contact-card-title">Location</h3>
+              <p class="contact-card-text">Abu Dhabi, United Arab Emirates</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="contact-card-content">
+              <h3 class="contact-card-title">Phone</h3>
+              <p class="contact-card-text">+971 508529382</p>
+            </div>
+          </div>
+          <div class="social-links-container">
+            <h3 class="social-links-title">Follow Me</h3>
+            <div class="social-links">
+              <a href="https://github.com/st6rgazing" class="social-link"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/mariam-shafey-671763351/" class="social-link"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-container">
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <input type="text" id="name" name="name" class="form-input" required>
+              <label for="name" class="form-label">Your Name</label>
+              <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="email" class="form-input" required>
+              <label for="email" class="form-label">Your Email</label>
+              <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+              <input type="text" id="subject" name="subject" class="form-input" required>
+              <label for="subject" class="form-label">Subject</label>
+              <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+              <textarea id="message" name="message" class="form-input form-textarea" required></textarea>
+              <label for="message" class="form-label">Your Message</label>
+              <div class="form-line"></div>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit liquid-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+              <div class="liquid"></div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="contact-shapes">
+      <div class="contact-shape contact-shape-1"></div>
+      <div class="contact-shape contact-shape-2"></div>
+    </div>
+    <div class="contact-3d-container">
+      <canvas id="contact-canvas"></canvas>
+    </div>
+  </section>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/RGBELoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js"></script>
-    
-    <!-- Custom JavaScript -->
-    <script src="js/main.js"></script>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-text">Portfolio</span>
+          <div class="logo-dot"></div>
+        </div>
+        <div class="footer-nav">
+          <ul class="footer-nav-list">
+            <li class="footer-nav-item"><a href="#home" class="footer-nav-link">Home</a></li>
+            <li class="footer-nav-item"><a href="#about" class="footer-nav-link">About</a></li>
+            <li class="footer-nav-item"><a href="#projects" class="footer-nav-link">Projects</a></li>
+            <li class="footer-nav-item"><a href="#contact" class="footer-nav-link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <div class="social-links">
+            <a href="https://github.com/st6rgazing" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mariam-shafey-671763351/" class="social-link"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2025 Mariam Shafey. All Rights Reserved.</p>
+        <p class="credits">Designed & Developed with <i class="fas fa-heart"></i></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <a href="#home" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- Project Details Modal -->
+  <div class="project-modal">
+    <div class="project-modal-content">
+      <span class="project-modal-close">&times;</span>
+      <div class="project-modal-header">
+        <h2 class="project-modal-title">Project Title</h2>
+      </div>
+      <div class="project-modal-body">
+        <div class="project-modal-image">
+          <img src="/placeholder.svg" alt="Project Image">
+        </div>
+        <div class="project-modal-info">
+          <div class="project-modal-description">
+            <h3>Project Description</h3>
+            <p>Detailed project description will appear here.</p>
+          </div>
+          <div class="project-modal-tech">
+            <h3>Technologies Used</h3>
+            <ul class="project-modal-tech-list">
+              <!-- Technologies will be added dynamically -->
+            </ul>
+          </div>
+          <div class="project-modal-features">
+            <h3>Key Features</h3>
+            <ul class="project-modal-features-list">
+              <li>Feature 1</li>
+              <li>Feature 2</li>
+              <li>Feature 3</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="project-modal-footer">
+        <a href="#" class="btn btn-primary project-modal-live">View Live</a>
+        <a href="#" class="btn btn-secondary project-modal-github">View Code</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lil-gui@0.17.0/dist/lil-gui.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.3/umd/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
