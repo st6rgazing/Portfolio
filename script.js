@@ -1297,7 +1297,7 @@ function initProjectModal() {
       image: "assets/comic.png",
       description:
        "An interactive comic website that follows the adventurous journey of a curious penguin through beautifully illustrated panels and engaging animations. Readers can explore the story at their own pace, triggering animations and dialogues as they navigate the comic.",
-      technologies: ["React", "React Native", "Node.js", "MongoDB", "Socket.io", "AWS S3"],
+      technologies: ["HTML", "CSS", "JS", "iBisPaintX"],
       features: [
         "Interactive comic navigation",
         "Animated story panels using GSAP",
