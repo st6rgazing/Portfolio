@@ -1241,6 +1241,8 @@ function initProjectModal() {
         "Vote tracking and history",
         "Admin dashboard",
       ],
+      github:"https://github.com/st6rgazing/sawty-voting",
+      live:"https://sawty-voting.vercel.app/"
     },
     {
       title: "Sunset Voyages",
@@ -1253,6 +1255,8 @@ function initProjectModal() {
         "Secure booking system",
         "Optimised database storing and calling",
       ],
+      live: "https://i5.abudhabi.nyu.edu/~mom8702/sunset/templates/index.html",
+      github:"https://github.com/st6rgazing/FinalAssignment_LOC"
     },
     {
       title: "The Hunger Games",
@@ -1268,6 +1272,8 @@ function initProjectModal() {
   "Creative direction and post-production effects",
   "Showcases narrative and technical skills",
       ],
+      github:"https://github.com/genesisreyes18/TheHungerGames",
+      live:"https://genesisreyes18.github.io/TheHungerGames/#home"
     },
     {
       title: "Portfolio Website",
@@ -1283,6 +1289,8 @@ function initProjectModal() {
         "Contact form with validation",
         "Performance optimization",
       ],
+      github:"https://github.com/st6rgazing/Portfolio",
+      live: "https://st6rgazing.github.io/Portfolio/#"
     },
     {
       title: "Interactive Comic",
@@ -1298,6 +1306,8 @@ function initProjectModal() {
         "Dynamic text bubbles and character interactions",
         "Smooth scrolling and transitions",
       ],
+      live:"https://saamia1.github.io/Interactive-Comic/",
+      github:"https://github.com/saamia1/Interactive-Comic"
     },
     {
       title: "Echoes of a Day",
@@ -1313,6 +1323,8 @@ function initProjectModal() {
   "Accessible interface with visual cues for sound",
   "Custom audio controls and playback options",
       ],
+      github:"https://github.com/alinoorisnerd/commlab_assign3/",
+      live:"https://alinoorisnerd.github.io/commlab_assign3/"
     },
   ]
 
@@ -1353,6 +1365,16 @@ function initProjectModal() {
         })
 
         // Show modal
+        const liveBtn = document.querySelector(".project-modal-live")
+const codeBtn = document.querySelector(".project-modal-github")
+
+// Set link URLs
+liveBtn.href = projectData.live || "#"
+codeBtn.href = projectData.github || "#"
+
+// Optional: open in new tab
+liveBtn.target = "_blank"
+codeBtn.target = "_blank"
         projectModal.classList.add("active")
         document.body.style.overflow = "hidden" // Prevent scrolling
       })
