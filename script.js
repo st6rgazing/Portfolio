@@ -1248,12 +1248,14 @@ function initProjectModal() {
       title: "Sunset Voyages",
       image: "assets/sunset.png",
       description:
-        "A mobile application designed to help users track their fitness journey, set goals, and monitor progress. The app provides personalized workout recommendations and nutrition advice based on user preferences and goals.",
+      "A responsive travel agency website that allows users to explore destinations, view offers, and book trips easily. The platform supports secure bookings and dynamic page rendering to ensure smooth user experience.",
       technologies: ["HTML", "CSS", "JavaScript", "SQLite"],
       features: [
-        "Responsive design",
-        "Secure booking system",
-        "Optimised database storing and calling",
+        "Responsive design with mobile-first layout",
+        "Secure trip booking system with form validation",
+        "Dynamically rendered content using Jinja2 templates",
+        "Optimized database interactions with SQLite",
+        "Clear navigation and engaging visual design",
       ],
       live: "https://i5.abudhabi.nyu.edu/~mom8702/sunset/templates/index.html",
       github:"https://github.com/st6rgazing/FinalAssignment_LOC"
